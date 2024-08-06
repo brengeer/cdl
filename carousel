@@ -1,0 +1,72 @@
+<div class="carousel">
+  <div class="carousel-inner">
+    <img src="image1.jpg" alt="Image 1" class="active">
+    <img src="image2.jpg" alt="Image 2">
+    <img src="image3.jpg" alt="Image 3">
+  </div>
+  <button class="prev">&#10094;</button>
+  <button class="next">&#10095;</button>
+</div>
+
+.carousel {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.carousel-inner {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+
+.carousel-inner img {
+  display: none;
+  width: 100%;
+  height: auto;
+}
+
+.carousel-inner img.active {
+  display: block;
+}
+
+.prev, .next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.5);
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.prev { left: 0; }
+.next { right: 0; }
+
+document.addEventListener('DOMContentLoaded', function() {
+  const carousel = document.querySelector('.carousel');
+  const images = carousel.querySelectorAll('img');
+  const prevBtn = carousel.querySelector('.prev');
+  const nextBtn = carousel.querySelector('.next');
+  let currentIndex = 0;
+
+  function showImage(index) {
+    images[currentIndex].classList.remove('active');
+    images[index].classList.add('active');
+    currentIndex = index;
+  }
+
+  prevBtn.addEventListener('click', function() {
+    let index = currentIndex - 1;
+    if (index < 0) index = images.length - 1;
+    showImage(index);
+  });
+
+  nextBtn.addEventListener('click', function() {
+    let index = currentIndex + 1;
+    if (index >= images.length) index = 0;
+    showImage(index);
+  });
+});
